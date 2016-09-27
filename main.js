@@ -1,10 +1,10 @@
 function generateInputField(fieldType) {
-    if (fieldType.startsWith("array")) {return null;}
+    if (fieldType.startsWith("array")) { return null; }
 
-    var match = /(.*)<(\d{1,5})>/.exec(fieldType);
+    var match = /(.*)<(.*)>/.exec(fieldType);
     var inputType = (match == null ? fieldType : match[1]);
     var valueSet = (match == null ? 0 : match[2]);
-    switch(inputType) {
+    switch (inputType) {
         case "ipv4": {
             var input = document.createElement("input");
             input.type = "text";
@@ -22,6 +22,18 @@ function generateInputField(fieldType) {
             var input = document.createElement("input");
             input.type = "text";
             input.maxLength = valueSet;
+            return input;
+        }
+        case "enum": {
+            var input = document.createElement("select");
+            var options = valueSet.split(",");
+            for (index = 0; index < options.length; index++) {
+                var option = document.createElement("option");
+                option.text = options[index];
+                option.value = index;
+                input.appendChild(option);
+            }
+
             return input;
         }
     }
@@ -56,7 +68,6 @@ function createStandalonTables() {
             var cell = row.insertCell(-1);
             cell.innerHTML = key;
             cell = row.insertCell(-1);
-            cell.contentEditable = true;
             cell.appendChild(generateInputField(schema.standalone[node][key]));
         })
 
