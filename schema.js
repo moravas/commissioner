@@ -1,49 +1,63 @@
 var schema = {
-    "standalone": {
-        "network": {
-            "IPAddress": "ipv4",
-            "NetworkMask": "ipv4",
-            "DefaultGateway": "ipv4"
-        },
-        "sysconfig": {
-            "hwInputNumber": "int<2>",
-            "hwOutputNumber": "int<2>",
-            "cik": "string<40>"
+    "Network": {
+        "IPAddress": "ipv4",
+        "NetworkMask": "ipv4",
+        "DefaultGateway": "ipv4",
+        "meta": {
+            "enumerate": 1
         }
     },
-    "enumeration": {
-        "input": {
-            "trigger": "enum<BothEdges,RisingEdge,DeferredBothEdges,DeferredRisingEdge>",
-            "name": "string<16>"
-        },
-        "output": {
-            "address": "int<2>",
-            "timeoutOFF": "int<2>",
-            "timeoutON": "int<2>",
-            "name": "string<16>",
-            "inputs": "array[int<2>]"
-        },
-        "tristateoutput": {
-            "addresslow": "int<2>",
-            "addresshigh": "int<2>",
-            "timeoutOFF": "int<2>",
-            "timeoutON": "int<2>",
-            "name": "string<16>",
-            "inputsUpDown": "array[int<2>]",
-            "inputsDown": "array[int<2>]",
-            "inputsUp": "array[int<2>]"
-        },
-        "irrigation": {
-            "area": "int<2>",
-            "input": "int<2>",
-            "upTime": "int<2>",
-            "startTime": "int<2>",
-            "mode": "enum<Normal,Grown>",
-            "offsetTime": "int<2>",
-            "dailyPrecipitation": "int<2>",
-            "unitPrecipitation": "int<2>",
-            "repeatCount": "int<2>",
-            "name": "string<16>"
+    "Sysconfig": {
+        "HwInputNumber": "int<2>",
+        "HwOutputNumber": "int<2>",
+        "CIK": "string<40>",
+        "meta": {
+            "enumerate": 1
+        }
+    },
+    "Input": {
+        "Trigger": "enum<BothEdges,RisingEdge,DeferredBothEdges,DeferredRisingEdge>",
+        "Name": "string<16>",
+        "meta": {
+            "enumerate": 800
+        }
+    },
+    "Output": {
+        "Address": "int<2>",
+        "TimeoutOFF": "int<2>",
+        "TimeoutON": "int<2>",
+        "Name": "string<16>",
+        "Inputs": "array[int<2>]",
+        "meta": {
+            "enumerate": 200
+        }
+    },
+    "Tristateoutput": {
+        "Addresslow": "int<2>",
+        "Addresshigh": "int<2>",
+        "TimeoutOFF": "int<2>",
+        "TimeoutON": "int<2>",
+        "Name": "string<16>",
+        "InputsUpDown": "array[int<2>]",
+        "InputsDown": "array[int<2>]",
+        "InputsUp": "array[int<2>]",
+        "meta": {
+            "enumerate": 1
+        }
+    },
+    "Irrigation": {
+        "Area": "int<2>",
+        "Input": "int<2>",
+        "UpTime": "int<2>",
+        "StartTime": "int<2>",
+        "Mode": "enum<Normal,Grown>",
+        "OffsetTime": "int<2>",
+        "DailyPrecipitation": "int<2>",
+        "UnitPrecipitation": "int<2>",
+        "RepeatCount": "int<2>",
+        "Name": "string<16>",
+        "meta": {
+            "enumerate": 1
         }
     }
 }

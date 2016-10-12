@@ -2,21 +2,28 @@
 <html ng-app="app">
 
 <head lang="en-US">
-    <meta charset="utf-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script type="text/javascript" src="schema.js"></script>
-    <script type="text/javascript" src="main.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+	<meta charset="utf-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script type="text/javascript" src="schema.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body ng-controller="ctrl" id="commission">
-    <nav id="menu">
-        <li><a href="#">Upload</a></li>
-        <li><a href="#">Save</a></li>
-        <li><a href="#">Download</a></li>
-        <li><a href="#">Compile</a></li>
-    </nav>
-    <div id="project"></div>
+	<nav id="menu">
+		<li><a href="#">Upload</a></li>
+		<li><a href="#">Save</a></li>
+		<li><a href="#">Download</a></li>
+		<li><a href="#">Compile</a></li>
+	</nav>
+	<div ng-repeat="(partitionname, partition) in schema">
+		<div>{{partitionname}}</div>
+		<table>
+			<tr>
+				<th ng-repeat="(key, value) in partition">{{key}}</th>
+			</tr>
+		</table>
+	</div>
 </body>
 
 </html>

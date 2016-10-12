@@ -39,44 +39,8 @@ function generateInputField(fieldType) {
     }
 }
 
-function getNamedTable(name) {
-    var table = document.createElement("table");
-    var row = table.insertRow(-1);
-    var cell = row.insertCell(-1);
-    cell.innerHTML = name;
-    return table;
-}
-
-function createEnumerationTables() {
-    Object.keys(schema.enumeration).forEach(function (node) {
-        var table = getNamedTable(node);
-        var row = table.insertRow(-1);
-        Object.keys(schema.enumeration[node]).forEach(function (key) {
-            var cell = row.insertCell(-1);
-            cell.innerHTML = key;
-        })
-
-        document.getElementById("project").appendChild(table);
-    })
-}
-
-function createStandalonTables() {
-    Object.keys(schema.standalone).forEach(function (node) {
-        var table = getNamedTable(node);
-        Object.keys(schema.standalone[node]).forEach(function (key) {
-            var row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = key;
-            cell = row.insertCell(-1);
-            cell.appendChild(generateInputField(schema.standalone[node][key]));
-        })
-
-        document.getElementById("project").appendChild(table);
-    })
-}
-
 angular.module("app", [])
     .controller("ctrl", ["$scope", function ($scope) {
-        createStandalonTables();
-        createEnumerationTables();
+        $scope.schema = schema;
+        $scope.generateInputField = generateInputField;
     }])
