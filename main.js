@@ -39,8 +39,22 @@ function generateInputField(fieldType) {
     }
 }
 
-angular.module("app", [])
-    .controller("ctrl", ["$scope", function ($scope) {
-        $scope.schema = schema;
-        $scope.generateInputField = generateInputField;
-    }])
+var app = angular.module("app", []);
+app.filter("metaFilter", function () {
+    return function (partition) {
+        var res = Object.assign({}, partition);
+        if (res.hasOwnProperty("meta")) {
+            delete res.meta;
+        }
+
+        return res;
+    };
+});
+
+app.controller("ctrl", ["$scope", function ($scope) {
+    $scope.schema = schema;
+    $scope.generateInputField = generateInputField;
+    $scope.enumerate = function (n) {
+        return new Array(n);
+    };
+}]);
