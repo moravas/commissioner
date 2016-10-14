@@ -4,29 +4,18 @@
 <head lang="en-US">
 	<meta charset="utf-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 	<script type="text/javascript" src="schema.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
-<body ng-controller="ctrl" id="commission">
-	<nav id="menu">
-		<li><a href="#">Upload</a></li>
-		<li><a href="#">Save</a></li>
-		<li><a href="#">Download</a></li>
-		<li><a href="#">Compile</a></li>
+<body>
+	<nav id="mainMenu">
+		<li><a href="#new">New</a></li>
+		<li><a href="#debug">Debug</a></li>
 	</nav>
-	<div ng-repeat="(partitionname, partition) in schema">
-		<h1>{{partitionname}}</h1>
-		<table>
-			<tr>
-				<th ng-repeat="(key, value) in partition | metaFilter">{{key}}</th>
-			</tr>
-			<tr ng-repeat="n in enumerate(partition.meta.enumerate) track by $index">
-				<td ng-repeat="(key, value) in partition | metaFilter"></td>
-			</tr>
-		</table>
-	</div>
+	<div ng-view></div>
 </body>
 
 </html>

@@ -1,0 +1,11 @@
+<div ng-repeat="(partitionname, partition) in schema">
+	<h1>{{partitionname}}</h1>
+	<table>
+		<tr>
+			<th ng-repeat="(key, value) in partition | metaFilter">{{key}}</th>
+		</tr>
+		<tr ng-repeat="n in enumerate(partition.meta.enumerate) track by $index">
+			<td ng-repeat="(key, value) in partition | metaFilter"></td>
+		</tr>
+	</table>
+</div>
