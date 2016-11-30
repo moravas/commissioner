@@ -1,34 +1,6 @@
-#mainMenu {
-    background-color: #333;
-    margin: 0;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
+body {
+    display: flex;
     width: 100%;
-}
-
-#mainMenu > li {
-    display: inline-block;
-    list-style-type: none;
-}
-
-#mainMenu > li:last-child {
-    float: right;
-}
-
-#mainMenu > li > a {
-    color: #aaa;
-    display: block;
-    line-height: 2em;
-    padding: 0.5em 0.5em;
-    text-decoration: none;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid black;
-    height: 12px;
+    height: 100%;
+    flex-direction: column;
 }

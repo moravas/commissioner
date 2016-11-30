@@ -1,20 +1,24 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="app">
 
 <head lang="en-US">
 	<meta charset="utf-8">
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
 	<script type="text/javascript" src="schema.js"></script>
+	<script type="text/javascript" src="project.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
-<body>
-	<nav id="mainMenu">
-		<li><a href="#new">New</a></li>
-		<li><a href="#debug">Debug</a></li>
+<body ng-controller="configController">
+	<nav class="nav navbar-nav navbar-default">
+		<li ng-repeat="(operation, value) in project"><a href="#{{operation}}">{{operation}}</a></li>
 	</nav>
+
 	<div ng-view></div>
 </body>
 
