@@ -1,3 +1,5 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 import APIView from "./apiview.jsx"
 
 class GridView extends React.Component {
