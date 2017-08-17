@@ -6,7 +6,8 @@
   "dependencies": {
     "live-server": "^1.1.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "superagent": "^3.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
