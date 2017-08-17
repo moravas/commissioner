@@ -1,2 +1,3 @@
 index.bundle.js
 node_modules/
+*.log

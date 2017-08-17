@@ -8,6 +8,7 @@ module.exports = {
     filename: 'index.bundle.js'
   },
 
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       {
