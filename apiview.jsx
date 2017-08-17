@@ -1,15 +1,21 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
+import Superagent from "superagent"
+
 export default class APIView extends React.Component {
     constructor() {
         super();
         this.timer = undefined;
+        this.state = { apiCall: '' };
 
         // bind it in order the "this" to be usable within callback
         this.onResponse = this.onResponse.bind(this);
         this.sendRequest = this.sendRequest.bind(this);
-        this.checkEnabled = this.checkEnabled.bind(this);
+    }
+
+    onURLUpdate(evt) {
+        this.setState({ apiCall: evt.target.value });
     }
 
     checkEnabled() {
@@ -23,34 +29,34 @@ export default class APIView extends React.Component {
     }
 
     onResponse(error, response) {
-        if (error || !response.ok) {
-            return;
-        }
-
-        if (response.header['content-length'] == 0) {
+        if (error || !response.ok || response.text.lenght == 0) {
             return;
         }
 
         var para = document.createElement("p");
-        para.appendChild(document.createTextNode(response.body));
+        para.appendChild(document.createTextNode(response.text));
         this.refs.response.appendChild(para);
     }
 
     sendRequest() {
-        superagent
-            .get(this.refs.request)
-            .set('Control-Allow-Credentials', 'true')
-            .set('Access-Control-Allow-Origin', 'true')
+        if (this.state.apiCall == '') {
+            return;
+        }
+
+        Superagent
+            .get(this.state.apiCall)
             .end(this.onResponse);
     }
 
     render() {
         return (
-            <div class="thumbnail">
-                <div class="caption">
-                    <input ref="request" type="url" />
-                    <input ref="enable" type="checkbox" onClick={this.checkEnabled} />
-                    <div ref="response">
+            <div className="col-xs-6 col-md-3">
+                <div className="thumbnail">
+                    <div className="caption">
+                        <input ref="request" type="url" onChange={(e) => this.onURLUpdate(e)} required pattern="http://.+"/>
+                        <input ref="enable" type="checkbox" onClick={() => this.checkEnabled()} />
+                        <div ref="response">
+                        </div>
                     </div>
                 </div>
             </div>

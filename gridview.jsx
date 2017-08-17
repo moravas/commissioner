@@ -7,8 +7,6 @@ class GridView extends React.Component {
         super();
 
         this.state = { views: 0 };
-
-        this.onAdd = this.onAdd.bind(this);
     }
 
     onAdd() {
@@ -25,13 +23,15 @@ class GridView extends React.Component {
 
         return (
             <div>
-                <input ref="add" type="button" onClick={this.onAdd} />
-                <div>
-                    {view}
+                <input ref="add" type="button" value="Add" className="btn btn-default" onClick={() => this.onAdd()} />
+                <div className="container-fluid">
+                    <div className="row">
+                        {view}
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-ReactDOM.render(<GridView />, document.getElementById('tablediv'));
+ReactDOM.render(<GridView />, document.getElementById('root'));
