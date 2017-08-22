@@ -8,10 +8,6 @@ export default class APIView extends React.Component {
         super();
         this.timer = undefined;
         this.state = { apiCall: '' };
-
-        // bind it in order the "this" to be usable within callback
-        this.onResponse = this.onResponse.bind(this);
-        this.sendRequest = this.sendRequest.bind(this);
     }
 
     onURLUpdate(evt) {
@@ -24,7 +20,7 @@ export default class APIView extends React.Component {
             clearInterval(this.timer);
         }
         else {
-            this.timer = setInterval(this.sendRequest, 500);
+            this.timer = setInterval(() => this.sendRequest(), 500);
         }
     }
 
@@ -45,7 +41,7 @@ export default class APIView extends React.Component {
 
         Superagent
             .get(this.state.apiCall)
-            .end(this.onResponse);
+            .end(() => this.onResponse());
     }
 
     render() {
