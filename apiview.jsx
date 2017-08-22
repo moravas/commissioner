@@ -27,12 +27,12 @@ export default class APIView extends React.Component {
             clearInterval(this.timer);
         }
         else {
-            this.timer = setInterval(() => this.sendRequest(), 500);
+            this.timer = setInterval(() => { this.sendRequest() }, 500);
         }
     }
 
     onResponse(error, response) {
-        if (error || !response.ok || response.text.lenght == 0) {
+        if (error || !response.ok || response.text == "") {
             return;
         }
 
@@ -48,7 +48,7 @@ export default class APIView extends React.Component {
 
         Superagent
             .get(this.state.apiCall)
-            .end(() => this.onResponse());
+            .end((error, response) => { this.onResponse(error, response) });
     }
 
     render() {
