@@ -53,8 +53,15 @@ export default class APIView extends React.Component {
             <div className="col-xs-6 col-md-3">
                 <div className="thumbnail">
                     <div className="caption">
-                        <input ref="request" type="url" onChange={(e) => this.onURLUpdate(e)} required pattern="http://.+"/>
-                        <input ref="enable" type="checkbox" onClick={() => this.checkEnabled()} />
+                        <div className="input-group" >
+                            <span className="input-group-addon" ref="request-desc">
+                                API method
+                            </span>
+                            <input ref="request" className="form-control" type="url" aria-describedby="request-desc" onChange={(e) => this.onURLUpdate(e)} required pattern="http://.+" />
+                            <span className="input-group-addon" ref="request-desc">
+                                <input ref="enable" type="checkbox" aria-describedby="request-desc" onClick={() => this.checkEnabled()} />
+                            </span>
+                        </div>
                         <div ref="response">
                         </div>
                     </div>

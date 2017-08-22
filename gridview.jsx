@@ -23,7 +23,7 @@ class GridView extends React.Component {
 
         return (
             <div>
-                <input ref="add" type="button" value="Add" className="btn btn-default" onClick={() => this.onAdd()} />
+                <input ref="add" type="button" value="Add" style={{ width: "100%" }} className="btn btn-default" onClick={() => this.onAdd()} />
                 <div className="container-fluid">
                     <div className="row">
                         {view}
