@@ -7,11 +7,18 @@ export default class APIView extends React.Component {
     constructor() {
         super();
         this.timer = undefined;
-        this.state = { apiCall: '' };
+        this.state = {
+            apiCall: '',
+            render: true
+        };
     }
 
     onURLUpdate(evt) {
         this.setState({ apiCall: evt.target.value });
+    }
+
+    onRemove() {
+        this.setState({ render: false });
     }
 
     checkEnabled() {
@@ -45,6 +52,10 @@ export default class APIView extends React.Component {
     }
 
     render() {
+        if (this.state.render == false) {
+            return null;
+        }
+
         return (
             <div className="col-xs-6 col-md-3">
                 <div className="thumbnail">
@@ -54,8 +65,11 @@ export default class APIView extends React.Component {
                                 API method
                             </span>
                             <input ref="request" className="form-control" type="url" aria-describedby="request-desc" onChange={(e) => this.onURLUpdate(e)} required pattern="http://.+" />
-                            <span className="input-group-addon" ref="request-desc">
+                            <span className="input-group-addon">
                                 <input ref="enable" type="checkbox" aria-describedby="request-desc" onClick={() => this.checkEnabled()} />
+                            </span>
+                            <span className="input-group-btn">
+                                <input ref="remove" type="button" value="Remove" className="btn btn-default" aria-describedby="request-desc" onClick={() => this.onRemove()} />
                             </span>
                         </div>
                         <div ref="response">
