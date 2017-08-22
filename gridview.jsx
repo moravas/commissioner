@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import Add from "./add.jsx"
 import APIView from "./apiview.jsx"
 
 class GridView extends React.Component {
@@ -21,13 +23,12 @@ class GridView extends React.Component {
             view.push(<APIView key={index} />);
         };
 
+        view.push(<Add key={this.state.views} onAdd={this.onAdd.bind(this)} />);
+
         return (
-            <div>
-                <input ref="add" type="button" value="Add" style={{ width: "100%" }} className="btn btn-default" onClick={() => this.onAdd()} />
-                <div className="container-fluid">
-                    <div className="row">
-                        {view}
-                    </div>
+            <div className="container-fluid">
+                <div className="row">
+                    {view}
                 </div>
             </div>
         );
