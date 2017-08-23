@@ -8,20 +8,13 @@ export default class APIView extends React.Component {
         super();
         this.timer = undefined;
         this.state = {
-            apiCall: '',
+            URL: '',
+            response: '',
             render: true
         };
     }
 
-    onURLUpdate(evt) {
-        this.setState({ apiCall: evt.target.value });
-    }
-
-    onRemove() {
-        this.setState({ render: false });
-    }
-
-    checkEnabled() {
+    onChecked() {
         // Don't check timer, because after start, the else branch should initalize it
         if (!this.refs.enable.checked) {
             clearInterval(this.timer);
@@ -31,24 +24,28 @@ export default class APIView extends React.Component {
         }
     }
 
-    onResponse(error, response) {
-        if (error || !response.ok || response.text == "") {
-            return;
-        }
+    onResponse(res) {
+        this.setState({ response: this.state.response + res.text });
+    }
 
-        var para = document.createElement("p");
-        para.appendChild(document.createTextNode(response.text));
-        this.refs.response.appendChild(para);
+    responseContainer() {
+        return (<p>{this.state.response}</p>);
     }
 
     sendRequest() {
-        if (this.state.apiCall == '') {
+        if (this.state.URL == '') {
             return;
         }
 
         Superagent
-            .get(this.state.apiCall)
-            .end((error, response) => { this.onResponse(error, response) });
+            .get(this.state.URL)
+            .end((error, response) => {
+                if (error || !response.ok || response.text == "") {
+                    return;
+                }
+
+                this.onResponse(response);
+            });
     }
 
     render() {
@@ -64,16 +61,15 @@ export default class APIView extends React.Component {
                             <span className="input-group-addon" ref="request-desc">
                                 URL
                             </span>
-                            <input ref="request" className="form-control" type="url" aria-describedby="request-desc" onChange={(e) => this.onURLUpdate(e)} required pattern="http://.+" />
+                            <input ref="request" className="form-control" type="url" aria-describedby="request-desc" onChange={(e) => this.setState({ URL: e.target.value })} required pattern="http://.+" />
                             <span className="input-group-addon">
-                                <input ref="enable" type="checkbox" aria-describedby="request-desc" onClick={() => this.checkEnabled()} />
+                                <input ref="enable" type="checkbox" aria-describedby="request-desc" onClick={() => this.onChecked()} />
                             </span>
                             <span className="input-group-btn">
-                                <input ref="remove" type="button" value="Remove" className="btn btn-default" aria-describedby="request-desc" onClick={() => this.onRemove()} />
+                                <input ref="remove" type="button" value="Remove" className="btn btn-default" aria-describedby="request-desc" onClick={() => this.setState({ render: false })} />
                             </span>
                         </div>
-                        <div ref="response">
-                        </div>
+                        {this.responseContainer()}
                     </div>
                 </div>
             </div>
