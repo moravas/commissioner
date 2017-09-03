@@ -19,7 +19,7 @@ export default class GraphView extends APIView {
 
     responseContainer() {
         return (
-            <svg height="200" width="500">
+            <svg height="auto" width="100%" style={{border: "1px solid" }}>
                 <polyline points={this.state.response} style={{ fill: "none", stroke: "black", strokeWidth: "1" }} />
             </svg>
         );

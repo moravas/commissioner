@@ -11,7 +11,8 @@ export default class APIView extends React.Component {
             URLList: [""],
             response: '',
             render: true,
-            playVisibility: true
+            playVisibility: true,
+            collapseVisibility: true
         };
     }
 
@@ -65,7 +66,7 @@ export default class APIView extends React.Component {
         };
 
         return (
-            <div className="col-xs-6 col-md-3">
+            <div className="col-md-6">
                 <div className="thumbnail">
                     <div className="caption">
                         <div className="input-group" >
@@ -88,6 +89,18 @@ export default class APIView extends React.Component {
                             <span className={this.state.playVisibility ? "hidden input-group-addon" : "visible input-group-addon"}>
                                 <button type="button" className="btn btn-default" onClick={() => this.stop()} >
                                     <span className="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                                </button>sdvadv
+                            </span>
+
+                            {/*Collapse / Expand  URLs*/}
+                            <span className={this.state.collapseVisibility ? "visible input-group-addon" : "hidden input-group-addon"}>
+                                <button type="button" className="btn btn-default" data-toggle="collapse" data-target="#urllist" onClick={() => this.setState({ collapseVisibility: false })} >
+                                    <span className="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                            <span className={this.state.collapseVisibility ? "hidden input-group-addon" : "visible input-group-addon"}>
+                                <button type="button" className="btn btn-default" data-toggle="collapse" data-target="#urllist" onClick={() => this.setState({ collapseVisibility: true })} >
+                                    <span className="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                                 </button>
                             </span>
 
@@ -98,8 +111,14 @@ export default class APIView extends React.Component {
                                 </button>
                             </span>
                         </div>
-                        {urls}
-                        {this.responseContainer()}
+
+                        <div style={{ height: "40%", overflowY: "auto" }}>
+                            <div id="urllist" className="collapse in">
+                                {urls}
+                            </div>
+                            <hr />
+                            {this.responseContainer()}
+                        </div>
                     </div>
                 </div>
             </div>
