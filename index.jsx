@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Line } from 'recharts';
+import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line } from 'recharts';
 
 export class MyChart extends React.Component {
     constructor(props) {
@@ -30,11 +30,11 @@ export class MyChart extends React.Component {
                 <select onChange={(e) => this.setState({ database: e.target.value })}>
                     {options}
                 </select>
-                <LineChart width={600} height={300} data={d} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <LineChart width={600} height={300} data={d}>
                     <XAxis dataKey="timeStamp" />
-                    <YAxis />
+                    <YAxis unit=" km" />
                     <CartesianGrid strokeDasharray="3 3" />
-                    <Line type="monotone" dataKey="va" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="va" stroke="#8884d8" isAnimationActive={false} />
                 </LineChart>
             </div >
         );
