@@ -1,44 +1,82 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line } from 'recharts';
+import Superagent from 'superagent'
 
-export class MyChart extends React.Component {
+import Chart from './chart.jsx'
+
+class ChartGrid extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            database: "",
+            databases: []
+        };
+
+        getDatabases();
     }
 
     render() {
-        var d = [
-            { timeStamp: 4000, va: 2400 },
-            {va: 1398 },
-            { timeStamp: 2000, va: 9800 },
-            { timeStamp: 2780, va: 3908 },
-            { timeStamp: 1890, va: 4800.234 },
-            { timeStamp: 2390, va: 3800 },
-            { timeStamp: 3490, va: 4300 }
-        ];
-
-        var options = [];
-        for (var index = 0; index < 10; index++) {
-            options.push(<option key={index} value={index}>{index}</option>);
+        if (this.state.databases.length == 0) {
+            return (<h1>No databases are available</h1>);
         }
+
+        var charts = createCharts();
+        var options = createOptions();
 
         return (
             <div>
-                <select onChange={(e) => this.setState({ database: e.target.value })}>
-                    {options}
-                </select>
-                <LineChart width={600} height={300} data={d}>
-                    <XAxis dataKey="timeStamp" />
-                    <YAxis unit=" km" />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Line type="monotone" dataKey="va" stroke="#8884d8" isAnimationActive={false} />
-                </LineChart>
-            </div >
+                <select onChange={(e) => this.setState({ database: e.target.value })}> {options}</select>
+                {charts}
+            </div>
         );
+    }
+
+    getDatabases() {
+        Superagent
+            .get(GetAPIPrefix() + '/databases')
+            .end((error, response) => {
+                if (error || !response.ok || response.text == "") {
+                    return;
+                }
+
+                this.setState({ databases: JSON.stringify(response.text) });
+            });
+    }
+
+    createCharts() {
+        // put the valid requested values here
+        var values = [
+            { DisplayName: 'Gear', value: 'gear' },
+            { DisplayName: 'Rpm', value: 'engineRpm' },
+            { DisplayName: 'Average Fuel Consumption', value: 'fuelAverageConsumption' },
+            { DisplayName: 'Throttle', value: 'gameThrottle' },
+            { DisplayName: 'Brake', value: 'gameBrake' },
+            { DisplayName: 'Clutch', value: 'gameClutch' }
+        ];
+
+        var charts = [];
+        for (var index = 0; index < values.length; index++) {
+            var path = GetAPIPrefix() + '/' + this.state.database + '/' + values[index].value;
+            charts.push(<Chart path={path} title={values[index].DisplayName} />);
+        }
+
+        return charts;
+    }
+
+    createOptions() {
+        var options = [];
+        for (var index = 0; index < this.state.databases.length; index++) {
+            var db = this.state.databases[index];
+            options.push(<option key={db} value={db}>{db}</option>);
+        }
+
+        return options;
+    }
+
+    static GetAPIPrefix() {
+        return "/chart";
     }
 }
 
-ReactDOM.render(<MyChart />, document.getElementById('chart'));
+ReactDOM.render(<ChartGrid />, document.getElementById('chart'));
