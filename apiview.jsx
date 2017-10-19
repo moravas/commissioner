@@ -17,6 +17,10 @@ export default class APIView extends React.Component {
     }
 
     start() {
+        if (this.state.URLList[this.state.URLList.length - 1] == "") {
+            this.state.URLList.pop();
+        }
+
         this.timer = setInterval(() => { this.sendRequest() }, 500);
         this.setState({ playVisibility: false });
     }
@@ -73,7 +77,16 @@ export default class APIView extends React.Component {
                             {/*String label to tell the user what we expect*/}
                             <span ref="request-desc" className="input-group-addon">URL</span>
                             {/*String input field expecting a valid URL*/}
-                            <input ref="request" className="form-control" type="url" aria-describedby="request-desc" onChange={(e) => this.setState({ URLList: this.state.URLList.slice(0, this.state.URLList.length - 1).concat([e.target.value]) })} required pattern="http://.+" />
+                            <input
+                                ref="request"
+                                className="form-control"
+                                value={this.state.URLList[this.state.URLList.length - 1]}
+                                type="url"
+                                aria-describedby="request-desc"
+                                onChange={(e) => this.setState({ URLList: this.state.URLList.slice(0, this.state.URLList.length - 1).concat([e.target.value]) })}
+                                required
+                                pattern="http://.+"
+                            />
                             {/*Add button that appends URLs into a list*/}
                             <span className="input-group-addon">
                                 <button type="button" className="btn btn-default" onClick={() => this.setState({ URLList: this.state.URLList.concat([""]) })}>
